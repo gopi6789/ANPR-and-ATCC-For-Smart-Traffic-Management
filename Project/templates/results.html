@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Monitoring</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2a3d66;
+            padding: 1.5rem 3rem;
+            position: sticky;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav h1 {
+            color: #fff;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        nav ul li a:hover {
+            background-color: #1abc9c;
+            transform: translateY(-3px);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #2a3d66;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .form-select,
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            color: #fff;
+            background: #2a3d66;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .small-btn {
+            width: auto;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.9rem;
+            background-color: #2980b9;
+            border-radius: 5px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .small-btn:hover {
+            background-color: #1abc9c;
+        }
+
+        #startProcessingBtn {
+            margin-top: 0.6rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav h1 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                width: 90%;
+                padding: 1.5rem;
+            }
+
+            button, .small-btn {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Live Monitoring</h1>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 class="login-title">Live Monitoring Configuration</h2>
+
+        <form id="liveMonitoringForm" method="POST" action="/start_processing">
+            <label for="numCameras" class="form-label">Number of Cameras:</label>
+            <input type="number" id="numCameras" name="numCameras" min="1" max="10" required>
+            <div id="cameraIpsContainer"></div>
+            <div id="fileUploadContainer"></div>
+            <label for="processType" class="form-label">Select Process:</label>
+            <select name="processType" id="processType" class="form-select" required>
+                <option value="anpr">ANPR</option>
+                <option value="atcc">ATCC</option>
+            </select>
+            <button type="button" class="small-btn" onclick="toggleInputType()">Change Input Type</button>
+            <button id="startProcessingBtn" type="submit">Start Processing</button>
+        </form>
+    </div>
+</body>
+</html>
+
